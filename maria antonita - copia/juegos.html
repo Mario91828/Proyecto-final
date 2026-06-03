@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="estilosjuegos.css">
+    <title>Galería de Videojuegos - Mario Antonio Segura Fuentes</title>
+</head>
+
+<body>
+    <nav class="bat-nav">
+        <a href="index.html" class="bat-nav-brand">INICIO</a>
+        <ul class="bat-nav-menu">
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 1 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="mostrar.html">Mostrar Datos</a>
+                    <a href="meterdatos01.html">Meter Datos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 2 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="relaciones01.html">PERSONAJES DE MARVEL</a>
+                    <a href="juegos_registro.html">Juegos</a>
+                    <a href="tarjetas.html">Tarjetas de Juegos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 3 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="pokedex.html">POKEDEX</a>
+                    <a href="peliculas.html">GALERIA DE PELICULAS</a>
+                    <a href="juegos.html">GALERIA DE JUEGOS</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Galería de Videojuegos</h1>
+        <p class="subtitle">Desarrollado por Mario Antonio Segura Fuentes</p>
+        <form id="form">
+            <input type="text" id="search" placeholder="Escribe un juego..." />
+            <input type="submit" value="Buscar">
+        </form>
+    </div>
+
+    <main id="main">
+        <div class="loader"></div>
+    </main>
+
+    <script>
+        const API_KEY = 'ace42882428a4f01815fc08fa275cc49';
+        const main = document.getElementById('main');
+        const form = document.getElementById('form');
+        const search = document.getElementById('search');
+        let gamesList = [];
+
+        const getGames = async (url) => {
+            try {
+                main.innerHTML = '<div class="loader"></div>';
+                const res = await fetch(url);
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                
+                gamesList = (data.results || []).filter(({ name, esrb_rating, tags }) => {
+                    const isAdultPorn = (esrb_rating && esrb_rating.slug === 'adults-only') ||
+                        (tags && tags.some(t => ['hentai', 'pornography'].includes(t.slug))) ||
+                        name.toLowerCase().includes('hentai') || 
+                        name.toLowerCase().includes('porn');
+                    return !isAdultPorn;
+                });
+                
+                showGames(gamesList);
+            } catch (err) {
+                main.innerHTML = '<div class="error-msg">Error al conectar con la API de RAWG.</div>';
+            }
+        };
+
+        const showGames = (games) => {
+            main.innerHTML = games.length ? '' : '<div class="error-msg">No se encontraron resultados.</div>';
+            games.forEach(({ name, background_image, rating, released, genres, platforms }) => {
+                const gameEl = document.createElement('div');
+                gameEl.className = 'game';
+                
+                const cover = background_image || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=600';
+                const genreTags = genres ? genres.map(g => g.name).join(', ') : 'N/A';
+                const platformTags = platforms ? platforms.map(p => p.platform.name).join(', ') : 'N/A';
+
+                gameEl.innerHTML = `
+                    <img src="${cover}" alt="${name}">
+                    <div class="game-info">
+                        <h3>${name}</h3>
+                        <span class="${getClassByRate(rating)}">${rating ? rating.toFixed(1) : 'N/A'}</span>
+                    </div>
+                    <div class="overview">
+                        <h3>Detalles del Juego</h3>
+                        <p><strong>Lanzamiento:</strong> ${formatDate(released)}</p>
+                        <p><strong>Calificación:</strong> ${rating} / 5</p>
+                        <p><strong>Géneros:</strong> ${genreTags}</p>
+                        <p><strong>Plataformas:</strong> ${platformTags}</p>
+                    </div>
+                `;
+                main.appendChild(gameEl);
+            });
+        };
+
+        const getClassByRate = (rate) => {
+            if (!rate) return 'red';
+            return rate >= 4.0 ? 'green' : rate >= 3.0 ? 'orange' : 'red';
+        };
+
+        const formatDate = (dateString) => {
+            if (!dateString) return 'No anunciado';
+            const parts = dateString.split('-');
+            return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateString;
+        };
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = search.value.trim();
+            if (query) {
+                getGames(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=30&search=${encodeURIComponent(query)}`);
+            } else {
+                getGames(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-rating&page_size=30`);
+            }
+        });
+
+        getGames(`https://api.rawg.io/api/games?key=${API_KEY}&ordering=-rating&page_size=30`);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.bat-nav-link').on('click', function(e) {
+                var $dropdown = $(this).siblings('.bat-nav-dropdown');
+                if ($dropdown.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var isActive = $dropdown.hasClass('active');
+                    $('.bat-nav-dropdown').removeClass('active');
+                    $('.bat-nav-item').removeClass('active');
+                    if (!isActive) {
+                        $dropdown.addClass('active');
+                        $(this).parent().addClass('active');
+                    }
+                }
+            });
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.bat-nav-item').length) {
+                    $('.bat-nav-dropdown').removeClass('active');
+                    $('.bat-nav-item').removeClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

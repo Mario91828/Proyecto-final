@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mario Antonio Segura Fuentes - Captura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="juegosestilos.css">
+</head>
+
+<body>
+    <nav class="bat-nav">
+        <a href="index.html" class="bat-nav-brand">INICIO</a>
+        <ul class="bat-nav-menu">
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 1 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="mostrar.html">Mostrar Datos</a>
+                    <a href="meterdatos01.html">Meter Datos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 2 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="relaciones01.html">PERSONAJES DE MARVEL</a>
+                    <a href="juegos_registro.html">Juegos</a>
+                    <a href="tarjetas.html">Tarjetas de Juegos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 3 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="pokedex.html">POKEDEX</a>
+                    <a href="peliculas.html">GALERIA DE PELICULAS</a>
+                    <a href="juegos.html">GALERIA DE JUEGOS</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="form-container" style="margin-top: 100px;">
+        <div id="alert-container"></div>
+        <div style="width: 100%; max-width: 650px;">
+
+            <form id="relacionesForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Nombre Real">
+                </div>
+
+                <div class="form-group">
+                    <label for="alias">Alias:</label>
+                    <input type="text" id="alias" name="alias" required placeholder="Nombre de Héroe/Villano">
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_creacion">Fecha de Creación:</label>
+                    <input type="date" id="fecha_creacion" name="fecha_creacion" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" required placeholder="Escribe la historia o detalles..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="comics">Comics (separados por comas):</label>
+                    <input type="text" id="comics" name="comics" placeholder="Ejemplo: Spiderman, Ironman" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="superpoderes">Superpoderes (separados por comas):</label>
+                    <input type="text" id="superpoderes" name="superpoderes" placeholder="Ejemplo: Fuerza, Velocidad" required>
+                </div>
+
+                <input type="submit" value="Guardar Personaje">
+            </form>
+        </div>
+    </div>
+
+<script>
+    // Bat-nav logic
+    $(document).ready(function() {
+        $('.bat-nav-link').on('click', function(e) {
+            var $dropdown = $(this).siblings('.bat-nav-dropdown');
+            if ($dropdown.length) {
+                e.preventDefault();
+                $('.bat-nav-dropdown').not($dropdown).slideUp(300).removeClass('active');
+                $('.bat-nav-item').not($(this).parent()).removeClass('active');
+                
+                $dropdown.slideToggle(300).toggleClass('active');
+                $(this).parent().toggleClass('active');
+            }
+        });
+    });
+
+    // Form submission logic
+    document.getElementById('relacionesForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // En un escenario real, esto se guardaría en localStorage de manera estructurada
+        // para que las páginas de relaciones lo lean.
+        
+        document.getElementById('alert-container').innerHTML = "<div class='alert alert-success' style='margin-bottom: 20px;'>¡Datos capturados localmente con éxito!</div>";
+        this.reset();
+    });
+</script>
+</body>
+
+</html>

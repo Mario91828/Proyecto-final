@@ -1,0 +1,18 @@
+[
+  {
+    "PeliculaID": 1,
+    "Titulo": "The Avengers",
+    "AnioLanzamiento": "2012",
+    "director": "Joss Whedon",
+    "actores": "Robert Downey Jr., Chris Evans, Mark Ruffalo",
+    "personajes": "Iron Man, Capitán América, Hulk"
+  },
+  {
+    "PeliculaID": 2,
+    "Titulo": "The Dark Knight",
+    "AnioLanzamiento": "2008",
+    "director": "Christopher Nolan",
+    "actores": "Christian Bale, Heath Ledger",
+    "personajes": "Batman, El Joker"
+  }
+]

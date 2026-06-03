@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Batman - Mostrar Todos los Datos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="juegosestilos.css">
+</head>
+
+<body>
+
+<nav class="bat-nav">
+    <a href="index.html" class="bat-nav-brand">INICIO</a>
+    <ul class="bat-nav-menu">
+        <li class="bat-nav-item">
+            <a href="#" class="bat-nav-link">UNIDAD 1 &#9662;</a>
+            <div class="bat-nav-dropdown">
+                <a href="mostrar.html">Mostrar Datos</a>
+                <a href="meterdatos01.html">Meter Datos</a>
+            </div>
+        </li>
+        <li class="bat-nav-item">
+            <a href="#" class="bat-nav-link">UNIDAD 2 &#9662;</a>
+            <div class="bat-nav-dropdown">
+                <a href="relaciones01.html">PERSONAJES DE MARVEL</a>
+                <a href="juegos_registro.html">Juegos</a>
+                <a href="tarjetas.html">Tarjetas de Juegos</a>
+            </div>
+        </li>
+        <li class="bat-nav-item">
+            <a href="#" class="bat-nav-link">UNIDAD 3 &#9662;</a>
+            <div class="bat-nav-dropdown">
+                <a href="pokedex.html">POKEDEX</a>
+                <a href="peliculas.html">GALERIA DE PELICULAS</a>
+                <a href="juegos.html">GALERIA DE JUEGOS</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<div class="page-wrap">
+    <div class="page-title">&#9670; Mostrar Todos Los Datos &#9670;</div>
+
+    <div class="table-wrap" id="table-container">
+        <!-- Table will be injected here via JS -->
+    </div>
+</div>
+
+<!-- jQuery (Required for bat-nav dropdown logic if any) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script>
+    // Bat-nav logic
+    $(document).ready(function() {
+        $('.bat-nav-link').on('click', function(e) {
+            var $dropdown = $(this).siblings('.bat-nav-dropdown');
+            if ($dropdown.length) {
+                e.preventDefault();
+                $('.bat-nav-dropdown').not($dropdown).slideUp(300).removeClass('active');
+                $('.bat-nav-item').not($(this).parent()).removeClass('active');
+                
+                $dropdown.slideToggle(300).toggleClass('active');
+                $(this).parent().toggleClass('active');
+            }
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.bat-nav-item').length) {
+                $('.bat-nav-dropdown').slideUp(300).removeClass('active');
+                $('.bat-nav-item').removeClass('active');
+            }
+        });
+    });
+
+    // Fetch and display data
+    document.addEventListener("DOMContentLoaded", function() {
+        // First try to get from localStorage
+        let localData = JSON.parse(localStorage.getItem('personajes_db')) || [];
+
+        // Fetch from JSON file
+        fetch('data/personajes.json')
+            .then(response => response.json())
+            .then(jsonData => {
+                // Combine and render (JSON + LocalStorage)
+                // We keep them separate in logic to not overwrite JSON base data permanently if cleared
+                // For simplicity, we just display JSON data first, then LocalStorage data
+                
+                let allData = [...jsonData, ...localData];
+                renderTable(allData);
+            })
+            .catch(err => {
+                console.error("Error loading JSON:", err);
+                renderTable(localData); // Render at least local data if JSON fails
+            });
+    });
+
+    function renderTable(data) {
+        const container = document.getElementById('table-container');
+
+        if (data.length === 0) {
+            container.innerHTML = "<p style='text-align:center; color:#888;'>No se encontraron personajes registrados en la Batcomputadora.</p>";
+            return;
+        }
+
+        let html = "<table>";
+        html += `<tr>
+                <th>ID</th>
+                <th>Nombre Real</th>
+                <th>Personaje</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Poderes</th>
+                <th>Sexo</th>
+                <th>Debilidad</th>
+                <th>Creación</th>
+                <th>Biografía</th>
+                <th>Imagen</th>
+              </tr>`;
+
+        data.forEach((row, index) => {
+            html += "<tr>";
+            html += `<td>${row.ID || row.id || (index + 1)}</td>`;
+            html += `<td>${row["Nombre real"] || row.nombrereal || '-'}</td>`;
+            html += `<td>${row.Personaje || row.personaje || '-'}</td>`;
+            html += `<td>${row.Altura || row.altura || '-'} cm</td>`;
+            html += `<td>${row.Peso || row.peso || '-'} kg</td>`;
+            html += `<td>${row.Poderes || row.poderes || '-'}</td>`;
+            html += `<td>${row.Sexo || row.sexo || '-'}</td>`;
+            html += `<td>${row.Debilidad || row.debilidad || '-'}</td>`;
+            html += `<td>${row.Creation || row.creacion || '-'}</td>`;
+            html += `<td class='biografia'>${row.Biografia || row.biografia || '-'}</td>`;
+            
+            if (row.imagen) {
+                // If the image is a data URL (from local storage)
+                if (row.imagen.startsWith("data:image")) {
+                    html += `<td><img class="img-personaje" src="${row.imagen}"></td>`;
+                } else {
+                    html += `<td><img class="img-personaje" src="${row.imagen}"></td>`;
+                }
+            } else {
+                html += "<td>Sin imagen</td>";
+            }
+            
+            html += "</tr>";
+        });
+
+        html += "</table>";
+        container.innerHTML = html;
+    }
+</script>
+</body>
+</html>

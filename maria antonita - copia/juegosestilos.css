@@ -1,0 +1,614 @@
+body {
+    background: #000;
+    color: #fff;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url('batman-12466.webp') center/cover no-repeat;
+    opacity: .35;
+}
+
+h1 {
+    font-family: 'Oswald', sans-serif;
+    color: #F2C94C;
+    text-align: center;
+}
+
+.bat-nav {
+    background: #111;
+    border-bottom: 2px solid #F2C94C;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    padding: 0 40px;
+    font-family: 'Oswald', sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .8);
+}
+
+.bat-nav * {
+    box-sizing: border-box;
+}
+
+.bat-nav-brand {
+    color: #F2C94C;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 20px;
+    letter-spacing: 1px;
+}
+
+.bat-nav-brand:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.bat-nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.bat-nav-item {
+    position: relative;
+}
+
+.bat-nav-link {
+    color: #F2C94C;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 18px 20px;
+    display: block;
+    transition: .3s;
+    font-size: 1.1rem;
+}
+
+.bat-nav-link:hover {
+    background: #222;
+    color: #fff;
+    text-decoration: none;
+}
+
+.bat-nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #1a1a1a;
+    border: 1px solid #F2C94C;
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .9);
+}
+
+.bat-nav-item:hover .bat-nav-dropdown {
+    display: flex;
+}
+
+.bat-nav-dropdown a {
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: .3s;
+    font-size: 1rem;
+    border-bottom: 1px solid #333;
+}
+
+.bat-nav-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.bat-nav-dropdown a:hover {
+    background: #F2C94C;
+    color: #000;
+    text-decoration: none;
+}
+
+.jumbotron {
+    background: rgba(15, 15, 15, .85);
+    border: 1px solid #F2C94C;
+    color: #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(242, 201, 76, .2);
+    margin-top: 40px;
+}
+
+.jumbotron h1 {
+    text-shadow: 0 0 10px rgba(242, 201, 76, .5);
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background: #F2C94C;
+    border-color: #F2C94C;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+}
+
+.btn-primary:hover {
+    background: #e0b63c;
+    border-color: #e0b63c;
+    color: #000;
+}
+
+/* Estilos adicionales para el formulario */
+.form-group label {
+    color: #F2C94C;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.form-control {
+    background: rgba(25, 25, 25, 0.8);
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.form-control:focus {
+    background: rgba(35, 35, 35, 1);
+    border-color: #F2C94C;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(242, 201, 76, 0.5);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* === ESTILOS EXTRAIDOS DE FORMULARIOS Y TABLAS === */
+
+/* capturadatosrelacionados.php / formulario.php / meterdatos01.php */
+.form-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.form-container form,
+.form-wrap form {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(242, 201, 76, 0.3);
+    color: #fff;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(242, 201, 76, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.form-container form:hover,
+.form-wrap form:hover {
+    transform: translateY(-5px);
+    border-color: rgba(242, 201, 76, 0.6);
+}
+
+.page-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 90px;
+    padding-bottom: 50px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #F2C94C;
+    text-shadow: 0 0 14px rgba(242, 201, 76, 0.6), 2px 2px 6px #000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    text-align: center;
+    color: #F2C94C;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(242, 201, 76, 0.4);
+}
+
+.form-wrap {
+    background: rgba(15, 15, 15, 0.85);
+    border: 2px solid #F2C94C;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    margin-bottom: 40px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 25px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-wrap label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.form-wrap input[type="text"],
+.form-wrap input[type="date"],
+.form-wrap textarea,
+.form-wrap input[type="file"],
+.form-wrap select {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: #111;
+    border: 1px solid rgba(242, 201, 76, 0.5);
+    border-radius: 6px;
+    color: #F2C94C;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-wrap input:focus,
+.form-wrap textarea:focus,
+.form-wrap select:focus {
+    box-shadow: 0 0 8px rgba(242, 201, 76, 0.4);
+    border-color: #F2C94C;
+}
+
+.form-wrap input[type="date"] {
+    color-scheme: dark;
+}
+
+.btn-guardar,
+.form-wrap input[type="submit"] {
+    background-color: #F2C94C;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 25px;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.btn-guardar:hover,
+.form-wrap input[type="submit"]:hover {
+    background-color: #ffe066;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(242, 201, 76, 0.3);
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.alert-success {
+    background: rgba(26, 46, 0, 0.9);
+    border: 1px solid #6fcf4a;
+    color: #8adf55;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.alert-error {
+    background: rgba(46, 0, 0, 0.9);
+    border: 1px solid #e55;
+    color: #f88;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.links-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-link {
+    color: #F2C94C;
+    text-decoration: none;
+    font-size: 0.95rem;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.btn-link:hover {
+    border-bottom-color: #F2C94C;
+    text-decoration: none;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px 10px 40px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #F2C94C;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 4px solid #F2C94C;
+    padding-left: 12px;
+}
+
+.btn-volver {
+    background-color: #111;
+    color: #F2C94C;
+    border: 1px solid #F2C94C;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.btn-volver:hover {
+    background-color: #F2C94C;
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-ver {
+    background-color: transparent;
+    color: #F2C94C;
+    border: 1px solid #F2C94C;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.btn-ver:hover {
+    background-color: #F2C94C;
+    color: #000;
+}
+
+/* TABLAS (mostrar.php, mostrardatos.php, personjes.php) */
+.table-wrap {
+    background: rgba(0, 0, 0, .75);
+    border: 1px solid rgba(242, 201, 76, 0.3);
+    border-radius: 10px;
+    overflow-x: auto;
+    padding: 20px 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .8);
+    margin: 0 auto;
+    max-width: 1200px;
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: #F2C94C;
+}
+
+th {
+    color: #000;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: .92rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid #333;
+}
+
+td {
+    padding: 9px 12px;
+    color: #F2C94C;
+    border-bottom: 1px solid rgba(242, 201, 76, 0.1);
+    font-size: .9rem;
+    vertical-align: middle;
+    border: 1px solid #333;
+}
+
+tbody tr:nth-child(even) {
+    background: rgba(30, 30, 30, .7);
+}
+
+tbody tr:hover {
+    background: rgba(242, 201, 76, .15);
+}
+
+.biografia {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #eaeaea;
+    font-family: 'Arial', sans-serif;
+}
+
+.img-personaje {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #F2C94C;
+}
+
+td img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #F2C94C;
+}
+
+/* relaciones01-04 */
+.table-hu th,
+.table-hu td {
+    border: 1px solid rgba(242, 201, 76, 0.3) !important;
+    padding: 15px !important;
+    vertical-align: middle !important;
+}
+
+.table-hu tbody tr:hover {
+    background-color: rgba(242, 201, 76, 0.2) !important;
+    transition: background-color 0.3s;
+    cursor: default;
+    transform: scale(1.005);
+}
+
+/* tablafinal.php */
+.dossier-card {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(145deg, #181818 0%, #0a0a0a 100%);
+    border: 2px solid #F2C94C;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(242, 201, 76, 0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.dossier-header {
+    background: #F2C94C;
+    color: #000;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #b38b1e;
+}
+
+.dossier-header h1 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    text-align: left;
+}
+
+.confidential-stamp {
+    border: 2px solid #000;
+    color: #000;
+    font-weight: 700;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transform: rotate(-5deg);
+}
+
+.dossier-body {
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-row {
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+.info-label {
+    color: #F2C94C;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: #eaeaea;
+    font-weight: 400;
+}
+
+.bio-section {
+    background: #111;
+    padding: 15px;
+    border-left: 3px solid #F2C94C;
+    margin-top: 5px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+.dossier-footer {
+    padding: 15px 25px;
+    background: #0a0a0a;
+    border-top: 1px solid #333;
+    text-align: right;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #F2C94C;
+    border-radius: 10px;
+}
+
+.bat-nav-item.active .bat-nav-dropdown,
+.bat-nav-dropdown.active {
+    display: flex !important;
+}

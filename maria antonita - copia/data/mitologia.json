@@ -1,0 +1,20 @@
+[
+  {
+    "nombre_heroe": "Wonder Woman",
+    "nombre_poder": "Súper fuerza, Vuelo",
+    "tipo_magia": "Magia Divina",
+    "deidad_nombre": "Ares",
+    "dominio": "Guerra",
+    "cultura_nombre": "Griega",
+    "origen": "Grecia Antigua"
+  },
+  {
+    "nombre_heroe": "Thor",
+    "nombre_poder": "Control del clima, Súper fuerza",
+    "tipo_magia": "Magia Asgardiana",
+    "deidad_nombre": "Odín",
+    "dominio": "Sabiduría",
+    "cultura_nombre": "Nórdica",
+    "origen": "Escandinavia"
+  }
+]
