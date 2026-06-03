@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Oswald:wght@400;600;700&display=swap');
+
+:root {
+    --bg-color: #0b0b0e;
+    --card-bg: #111116;
+    --accent-purple: #9d4edd;
+    --accent-cyan: #00f5ff;
+    --text-color: #ffffff;
+    --text-muted: #8e92a8;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(157, 78, 221, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(0, 245, 255, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 90px;
+    margin-bottom: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(0, 245, 255, 0.15);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+form {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+    gap: 12px;
+}
+
+input[type="text"] {
+    font-size: 15px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 2px solid var(--accent-purple);
+    width: 250px;
+    background-color: #121218;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(157, 78, 221, 0.15);
+}
+
+input[type="text"]:focus {
+    width: 320px;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+input[type="submit"] {
+    font-size: 13px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 245, 255, 0.5);
+}
+
+/* Grid Responsivo */
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 35px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+
+/* Tarjeta Cyberpunk */
+.game {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid var(--accent-purple);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(157, 78, 221, 0.1);
+}
+
+.game:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 245, 255, 0.3);
+}
+
+.game img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.game:hover img {
+    transform: scale(1.04);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to top, #0b0b0e, #111116);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.game-info h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+}
+
+.game-info span {
+    background-color: rgba(11, 11, 14, 0.9);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-info span.green {
+    color: #00ff87;
+    border-color: rgba(0, 255, 135, 0.3);
+    text-shadow: 0 0 10px rgba(0, 255, 135, 0.2);
+}
+
+.game-info span.orange {
+    color: #ff9f1c;
+    border-color: rgba(255, 159, 28, 0.3);
+    text-shadow: 0 0 10px rgba(255, 159, 28, 0.2);
+}
+
+.game-info span.red {
+    color: #ff4d6d;
+    border-color: rgba(255, 77, 109, 0.3);
+    text-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+}
+
+/* Panel Deslizante de Detalles */
+.overview {
+    background: rgba(11, 11, 14, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f0f1f5;
+    padding: 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 100%;
+    transform: translateY(102%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow-y: auto;
+    border-top: 2px solid var(--accent-cyan);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.overview h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+    padding-bottom: 8px;
+}
+
+.overview p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 10px 0;
+    color: var(--text-muted);
+}
+
+.overview strong {
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.game:hover .overview {
+    transform: translateY(0);
+}
+
+
+
+/* Indicador de carga */
+.loader {
+    grid-column: 1 / -1;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(157, 78, 221, 0.2);
+    border-top: 5px solid var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 40px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #ff4d6d;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    margin-top: 40px;
+}
+
+/* === CYBERPUNK THEME NAVBAR === */
+.bat-nav {
+    background: #0b0b0e;
+    border-bottom: 2px solid var(--accent-purple);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    padding: 0 40px;
+    font-family: 'Oswald', sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .8), 0 0 15px rgba(157, 78, 221, 0.1);
+}
+
+.bat-nav * {
+    box-sizing: border-box;
+}
+
+.bat-nav-brand {
+    color: var(--accent-cyan);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+}
+
+.bat-nav-brand:hover {
+    color: #fff;
+    text-shadow: 0 0 15px rgba(0, 245, 255, 0.8);
+    text-decoration: none;
+}
+
+.bat-nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.bat-nav-item {
+    position: relative;
+}
+
+.bat-nav-link {
+    color: var(--accent-purple);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 18px 20px;
+    display: block;
+    transition: .3s;
+    font-size: 1.1rem;
+}
+
+.bat-nav-link:hover {
+    background: #121218;
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+    text-decoration: none;
+}
+
+.bat-nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #121218;
+    border: 1px solid var(--accent-cyan);
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .9), 0 0 15px rgba(0, 245, 255, 0.2);
+}
+
+.bat-nav-item:hover .bat-nav-dropdown {
+    display: flex;
+}
+
+.bat-nav-item.active .bat-nav-dropdown,
+.bat-nav-dropdown.active {
+    display: flex !important;
+}
+
+.bat-nav-dropdown a {
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: .3s;
+    font-size: 1rem;
+    border-bottom: 1px solid #1a1a24;
+}
+
+.bat-nav-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.bat-nav-dropdown a:hover {
+    background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+

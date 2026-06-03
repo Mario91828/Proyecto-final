@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mario Antonio Segura Fuentes - Películas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="juegosestilos.css">
+</head>
+
+<body>
+    <nav class="bat-nav">
+        <a href="index.html" class="bat-nav-brand">INICIO</a>
+        <ul class="bat-nav-menu">
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 1 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="mostrar.html">Mostrar Datos</a>
+                    <a href="meterdatos01.html">Meter Datos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 2 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="relaciones01.html">PERSONAJES DE MARVEL</a>
+                    <a href="juegos_registro.html">Juegos</a>
+                    <a href="tarjetas.html">Tarjetas de Juegos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 3 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="pokedex.html">POKEDEX</a>
+                    <a href="peliculas.html">GALERIA DE PELICULAS</a>
+                    <a href="juegos.html">GALERIA DE JUEGOS</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="container" style="margin-top: 100px;">
+        <div class="jumbotron">
+            <h1 class="text-center" style="margin-bottom: 30px;">Películas y Directores</h1>
+            <div class="table-responsive">
+                <table class="table table-hu" style="background: rgba(0,0,0,0.6); color: #ddd; border-radius: 12px; overflow: hidden; border-collapse: separate; border-spacing: 0;">
+                    <thead style="background: #F2C94C; color: #000; font-family: 'Oswald', sans-serif;">
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Año de Lanzamiento</th>
+                            <th>Director</th>
+                            <th>Actores</th>
+                            <th>Personajes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movies-table-body">
+                        <!-- JS content here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Bat-nav logic
+    $(document).ready(function() {
+        $('.bat-nav-link').on('click', function(e) {
+            var $dropdown = $(this).siblings('.bat-nav-dropdown');
+            if ($dropdown.length) {
+                e.preventDefault();
+                $('.bat-nav-dropdown').not($dropdown).slideUp(300).removeClass('active');
+                $('.bat-nav-item').not($(this).parent()).removeClass('active');
+                
+                $dropdown.slideToggle(300).toggleClass('active');
+                $(this).parent().toggleClass('active');
+            }
+        });
+    });
+
+    // Fetch and display data
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('data/peliculas_directores.json')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('movies-table-body');
+                if (data.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No hay datos para mostrar</td></tr>";
+                    return;
+                }
+
+                data.forEach(row => {
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.PeliculaID || ''}</td>
+                        <td>${row.Titulo || ''}</td>
+                        <td>${row.AnioLanzamiento || ''}</td>
+                        <td>${row.director || ''}</td>
+                        <td>${row.actores || ''}</td>
+                        <td>${row.personajes || ''}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(err => {
+                console.error("Error loading JSON:", err);
+                document.getElementById('movies-table-body').innerHTML = "<tr><td colspan='6' style='color:red; text-align:center;'>Error al cargar datos JSON</td></tr>";
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link href=" https://fonts.cdnfonts.com/css/exima-geometric " rel="stylesheet">
+    <link rel="stylesheet" href="estilopelicula.css">
+    <title>Mario Antonio Segura Fuentes</title>
+</head>
+
+<body>
+    <nav class="bat-nav">
+        <a href="index.html" class="bat-nav-brand">INICIO</a>
+        <ul class="bat-nav-menu">
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 1 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="mostrar.html">Mostrar Datos</a>
+                    <a href="meterdatos01.html">Meter Datos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 2 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="relaciones01.html">PERSONAJES DE MARVEL</a>
+                    <a href="juegos_registro.html">Juegos</a>
+                    <a href="tarjetas.html">Tarjetas de Juegos</a>
+                </div>
+            </li>
+            <li class="bat-nav-item">
+                <a href="#" class="bat-nav-link">UNIDAD 3 &#9662;</a>
+                <div class="bat-nav-dropdown">
+                    <a href="pokedex.html">POKEDEX</a>
+                    <a href="peliculas.html">GALERIA DE PELICULAS</a>
+                    <a href="juegos.html">GALERIA DE JUEGOS</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Pagina de Peliculas</h1>
+        <form id="form">
+            <input type="text" id="search" placeholder="BREKING BAD..." />
+            <input type="submit" value="Buscar">
+        </form>
+    </div>
+    <main id="main"></main>
+    <script>
+        const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1&language=es-ES';
+        const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+        const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&language=es-ES&query=';
+
+        const main = document.getElementById('main');
+        const form = document.getElementById('form');
+        const search = document.getElementById('search');
+
+        // Obtener películas iniciales
+        getMovies(API_URL);
+
+        async function getMovies(url) {
+            const res = await fetch(url);
+            const data = await res.json();
+            showMovies(data.results);
+        }
+
+        function showMovies(movies) {
+            main.innerHTML = '';
+            movies.forEach((movie) => {
+                const { title, poster_path, vote_average, overview } = movie;
+                const movieEl = document.createElement('div');
+
+                movieEl.classList.add('movie');
+                movieEl.innerHTML = `
+            <img src="${IMG_PATH + poster_path}" alt="${title}">
+            <div class="movie-info">
+                <h3>${title}</h3>
+                <span class="${getClassByRate(vote_average)}">${vote_average}</span>
+            </div>
+            
+            <div class="overview">
+                <h3>Resumen</h3>
+                ${overview}
+            </div>
+    `;
+                main.appendChild(movieEl);
+            });
+        }
+
+        function getClassByRate(vote) {
+            if (vote >= 8) {
+                return 'green';
+            } else if (vote >= 5) {
+                return 'orange';
+            } else {
+                return 'red';
+            }
+        }
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const searchTerm = search.value;
+            if (searchTerm && searchTerm !== '') {
+                getMovies(SEARCH_API + searchTerm);
+                search.value = '';
+            } else {
+                window.location.reload();
+            }
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.bat-nav-link').on('click', function(e) {
+                var $dropdown = $(this).siblings('.bat-nav-dropdown');
+                if ($dropdown.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var isActive = $dropdown.hasClass('active');
+                    $('.bat-nav-dropdown').removeClass('active');
+                    $('.bat-nav-item').removeClass('active');
+                    if (!isActive) {
+                        $dropdown.addClass('active');
+                        $(this).parent().addClass('active');
+                    }
+                }
+            });
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.bat-nav-item').length) {
+                    $('.bat-nav-dropdown').removeClass('active');
+                    $('.bat-nav-item').removeClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
